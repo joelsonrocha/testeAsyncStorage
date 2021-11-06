@@ -15,10 +15,15 @@ const styles = StyleSheet.create({
 
 const Home = () => {
   const [name, setName] = useState("");
+  const [nameBusca, setNameBusca] = useState("");
   const [idEdit, setIdEdit] = useState(null);
+  const [originalData, setOriginalData] = useState([]);  
   const [data, setData] = useState([]);  
 
   const saveForm = () => {
+      if(!name.trim()){
+          return;
+      } 
       if(idEdit){
         let editItem = {
             id: idEdit,
@@ -82,7 +87,6 @@ const Home = () => {
   );
 
   const editItem = (item) =>{
-      console.log('editItem', item);
       setName(item.name);
       setIdEdit(item.id);
   }
@@ -96,6 +100,23 @@ const Home = () => {
     }
   }
 
+  const buscaNome = (value) =>{
+    setOriginalData(data);
+    setNameBusca(value);
+      if(value.length >= 3){
+        let array = data;
+        let novoArray = array.find((item) => item.name === value);
+        console.log('novoArray', novoArray);
+        //setData([...[novoArray]]);
+      }else{
+        //setData([...originalData]);
+      }
+      
+      console.log('buscaNome', value);
+
+
+  }
+
   return (
     <>  
         <View style={{height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: '#448AFF'}}>
@@ -106,6 +127,12 @@ const Home = () => {
                 style={styles.input}
                 onChangeText={setName}
                 value={name}
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={(value) => buscaNome(value)}
+                value={nameBusca}
+                placeholder="busca por nome"
             />
             <Button title="Salvar" onPress={saveForm}/>
         </View>
