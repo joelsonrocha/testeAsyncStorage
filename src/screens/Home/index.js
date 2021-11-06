@@ -20,18 +20,18 @@ const Home = () => {
 
   const saveForm = () => {
       if(idEdit){
-        const editItem = {
+        let editItem = {
             id: idEdit,
             name: name
         }
-        const arrayEdit = data;
-        const index = arrayEdit.findIndex((item) => item.id === idEdit);
+        let arrayEdit = data;
+        let index = arrayEdit.findIndex((item) => item.id === idEdit);
         if(index >= 0){
             arrayEdit[index] = editItem;
-            setData(arrayEdit);
+            setData([...arrayEdit]);
         }
       }else{
-        const novoItem = {
+        let novoItem = {
             id: uuid.v4(),
             name: name
         }
@@ -88,11 +88,11 @@ const Home = () => {
   }
 
   const deleteItem = (id) =>{
-    const arrayEdit = data;
-    const index = arrayEdit.findIndex((item) => item.id === id);
+    let arrayEdit = data;
+    let index = arrayEdit.findIndex((item) => item.id === id);
     if(index >= 0){
         arrayEdit.splice(index, 1);
-        setData(arrayEdit);
+        setData([...arrayEdit]);
     }
   }
 
